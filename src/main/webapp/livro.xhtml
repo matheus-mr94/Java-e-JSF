@@ -25,7 +25,7 @@
 				<h:inputText id="isbn" value="#{livroBean.livro.isbn}"
 					validator="#{livroBean.comecaComDigitoUm}" />
 				<h:outputLabel value="Preço:" for="preco" />
-				<h:inputText id="preco" value="#{livroBean.livro.preco}">
+				<h:inputText id="preco" value="#{livroBean.livro.preco}" validatorMessage="Valor deve ser entre 1 e 1000">
 					<f:validateDoubleRange minimum="1" maximum="1000" />
 				</h:inputText>
 				<h:outputLabel value="Data de Lançamento:" for="dataLancamento" />
@@ -47,6 +47,8 @@
 				<f:ajax execute="autor" render="tabelaAutores" />
 			</h:commandButton>
 	
+			<br/>
+			<h:commandLink value="Cadastrar novo autor" action="#{livroBean.formAutor}" immediate="true"/>
 		
 			<h:dataTable value="#{livroBean.autoresDoLivro}" var="autor"
 				id="tabelaAutores">

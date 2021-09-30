@@ -48,6 +48,7 @@ public class LivroBean {
 	public void gravarAutor() {
 		Autor autor = new DAO<Autor>(Autor.class).buscaPorId(autorId);
 		this.livro.adicionaAutor(autor);
+		System.out.println("Escrito por: " + autor.getNome());
 	}
 	
 	public void gravar() {
@@ -61,6 +62,11 @@ public class LivroBean {
         new DAO<Livro>(Livro.class).adiciona(this.livro);
         this.livro = new Livro();
     }
+	
+	public String formAutor() {
+		System.out.println("Chamando o formulário de autor");
+		return "autor?faces-redirect=true";
+	}
 	
 	public void comecaComDigitoUm(FacesContext fc, UIComponent component, Object value) throws ValidatorException{
 		String valor = value.toString();

@@ -59,6 +59,7 @@ public class LivroBean {
         }
         
         new DAO<Livro>(Livro.class).adiciona(this.livro);
+        this.livro = new Livro();
     }
 	
 	public void comecaComDigitoUm(FacesContext fc, UIComponent component, Object value) throws ValidatorException{

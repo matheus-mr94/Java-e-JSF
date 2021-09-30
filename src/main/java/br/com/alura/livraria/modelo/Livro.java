@@ -1,5 +1,6 @@
 package br.com.alura.livraria.modelo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -13,7 +14,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-public class Livro {
+public class Livro implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue
@@ -80,21 +82,8 @@ public class Livro {
 		this.dataLancamento = dataLancamento;
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Livro other = (Livro) obj;
-		return Objects.equals(id, other.id);
+	public void setAutores(List<Autor> autores) {
+		this.autores = autores;
 	}
 
 }

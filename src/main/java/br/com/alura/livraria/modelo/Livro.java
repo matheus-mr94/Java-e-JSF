@@ -4,9 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Objects;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
@@ -27,7 +27,7 @@ public class Livro implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Calendar dataLancamento = Calendar.getInstance();
 
-	@ManyToMany
+	@ManyToMany(fetch=FetchType.EAGER)//Solução suja para LazyInitialization, correto é implementar um padrão que possibilita o carregamento.
 	private List<Autor> autores = new ArrayList<Autor>();
 
 	public List<Autor> getAutores() {
@@ -84,6 +84,11 @@ public class Livro implements Serializable {
 
 	public void setAutores(List<Autor> autores) {
 		this.autores = autores;
+	}
+
+	public void removeAutor(Autor autor) {
+		this.autores.remove(autor);
+		
 	}
 
 }

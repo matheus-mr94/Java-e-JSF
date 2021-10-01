@@ -10,5 +10,4 @@
 		<phase-listener>br.com.alura.livraria.util.LogPhaseListener</phase-listener>
 	</lifecycle>
 
-	
 </faces-config>

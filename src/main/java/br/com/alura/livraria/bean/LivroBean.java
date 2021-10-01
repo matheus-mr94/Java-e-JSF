@@ -19,7 +19,17 @@ public class LivroBean {
 	
 	private Livro livro = new Livro();
 	private Integer autorId;
+	private Integer livroId;
 	
+	
+
+	public Integer getLivroId() {
+		return livroId;
+	}
+
+	public void setLivroId(Integer livroId) {
+		this.livroId = livroId;
+	}
 
 	public Integer getAutorId() {
 		return autorId;
@@ -43,6 +53,10 @@ public class LivroBean {
 	
 	public List<Autor> getAutoresDoLivro(){
 		return this.livro.getAutores();
+	}
+	
+	public void carregarLivroPeloId() {
+		this.livro = new DAO<Livro>(Livro.class).buscaPorId(livroId);
 	}
    
 	public void gravarAutor() {

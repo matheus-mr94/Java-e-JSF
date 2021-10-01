@@ -13,9 +13,24 @@ import br.com.alura.livraria.modelo.Autor;
 public class AutorBean {
 	
 	private Autor autor = new Autor();
-
+	private Integer autorId;
+	
+	
 	public Autor getAutor() {
 		return autor;
+	}
+	
+
+	public Integer getAutorId() {
+		return autorId;
+	}
+
+	public void setAutorId(Integer autorId) {
+		this.autorId = autorId;
+	}
+	
+	public void carregarAutorPeloId() {
+		this.autor = new DAO<Autor>(Autor.class).buscaPorId(autorId);
 	}
 
 	public String gravar() {
@@ -44,5 +59,7 @@ public class AutorBean {
 	public void carregar(Autor autor) {
 		this.autor = autor;
 	}
+	
+	
 
 }

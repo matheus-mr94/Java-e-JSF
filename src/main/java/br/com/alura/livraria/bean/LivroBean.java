@@ -1,5 +1,6 @@
 package br.com.alura.livraria.bean;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -20,9 +21,14 @@ public class LivroBean {
 	private Livro livro = new Livro();
 	private Integer autorId;
 	private Integer livroId;
-	
-	
+	private List<Livro> livros;
+	private List<String> generos = Arrays.asList("Romance", "Drama", "Ação");
 
+	public List<String> getGeneros() {
+	    return generos;
+	}
+	
+	
 	public Integer getLivroId() {
 		return livroId;
 	}
@@ -44,7 +50,11 @@ public class LivroBean {
 	}
 	
 	public List<Livro> getLivros(){
-		return new DAO<Livro>(Livro.class).listaTodos();
+		DAO<Livro> dao = new DAO<Livro>(Livro.class);
+		if(this.livros == null) {
+		this.livros = dao.listaTodos();
+		}
+		return livros;
 	}
 	
 	public List<Autor> getAutores(){
@@ -66,19 +76,26 @@ public class LivroBean {
 	}
 	
 	public void gravar() {
-        System.out.println("Gravando livro " + this.livro.getTitulo());
-        
-        if(livro.getAutores().isEmpty()) {
-        	//throw new RuntimeException("Livro deve ter pelo menos um Autor");
-        	FacesContext.getCurrentInstance().addMessage("autor", new FacesMessage("Livro deve ter pelo menos um autor"));
-        }
-        if(this.livro.getId() ==  null) {
-        new DAO<Livro>(Livro.class).adiciona(this.livro);
-        }else {
-        	new DAO<Livro>(Livro.class).atualiza(this.livro);
-        }
-        this.livro = new Livro();
-    }
+	    System.out.println("Gravando livro " + this.livro.getTitulo());
+
+	    if (livro.getAutores().isEmpty()) {
+	        FacesContext.getCurrentInstance().addMessage("autor",
+	                new FacesMessage("Livro deve ter pelo menos um Autor."));
+	        return;
+	    }
+
+	    DAO<Livro> dao = new DAO<Livro>(Livro.class);
+
+	    if(this.livro.getId() == null) {
+	        dao.adiciona(this.livro);
+
+	        this.livros = dao.listaTodos();
+	    } else {
+	        dao.atualiza(this.livro);
+	    }
+
+	    this.livro = new Livro();
+	}
 	
 	public void removerAutorDoLivro(Autor autor) {
 		this.livro.removeAutor(autor);

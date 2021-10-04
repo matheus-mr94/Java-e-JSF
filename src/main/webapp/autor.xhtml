@@ -59,6 +59,10 @@
 					<h:outputText value="#{autor.nome}" />
 				</p:column>
 				<p:column>
+					<f:facet name="header">Email do Autor</f:facet>
+					<h:outputText value="#{autor.email}" />
+				</p:column>
+				<p:column>
 					<f:facet name="header">Alterar</f:facet>
 					<p:commandButton icon="pi pi-pencil" styleClass="edit-button rounded-button ui-button-primary" update=":autor" action="#{autorBean.carregar(autor)}"/>
 				</p:column>

@@ -20,7 +20,7 @@ public class Livro implements Serializable {
 	@Id
 	@GeneratedValue
 	private Integer id;
-
+	private String genero;
 	private String titulo;
 	private String isbn;
 	private double preco;
@@ -29,6 +29,18 @@ public class Livro implements Serializable {
 
 	@ManyToMany(fetch=FetchType.EAGER)//Solução suja para LazyInitialization, correto é implementar um padrão que possibilita o carregamento.
 	private List<Autor> autores = new ArrayList<Autor>();
+	
+	
+	
+	public String getGenero() {
+		return genero;
+	}
+	
+
+	public void setGenero(String genero) {
+		this.genero = genero;
+	}
+
 
 	public List<Autor> getAutores() {
 		return autores;

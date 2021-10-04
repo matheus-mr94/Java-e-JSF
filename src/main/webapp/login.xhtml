@@ -9,8 +9,8 @@
 	<ui:composition template="_template.xhtml">
 	
 		<ui:define name="titulo">
-				Login
-				</ui:define>
+				<p:outputPanel>Login</p:outputPanel>
+		</ui:define>
 		<ui:define name="conteudo">
 		
 		<p:messages globalOnly="true"/>
@@ -32,7 +32,6 @@
 						<p:message for="senha" id="mesageSenha" />
 						
 						<p:commandButton value="Entrar" action="#{loginBean.logar}" update="@form" process="@form"/>
-						
 					</h:panelGrid>
 				</p:fieldset>
 			</h:form>

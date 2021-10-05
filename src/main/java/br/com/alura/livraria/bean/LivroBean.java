@@ -1,28 +1,40 @@
 package br.com.alura.livraria.bean;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
+import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 
-import br.com.alura.livraria.dao.DAO;
+import br.com.alura.livraria.dao.AutorDao;
+import br.com.alura.livraria.dao.LivroDao;
 import br.com.alura.livraria.modelo.Autor;
 import br.com.alura.livraria.modelo.Livro;
 
-@ManagedBean
+@Named
 @ViewScoped
-public class LivroBean {
+public class LivroBean implements Serializable{
+	private static final long serialVersionUID = 1L;
 	
 	private Livro livro = new Livro();
 	private Integer autorId;
 	private Integer livroId;
 	private List<Livro> livros;
 	private List<String> generos = Arrays.asList("Romance", "Drama", "Ação");
+	
+	@Inject
+	LivroDao livroDao;
+	
+	@Inject
+	AutorDao autorDao;
+	
+	
 
 	public List<String> getGeneros() {
 	    return generos;
@@ -50,15 +62,15 @@ public class LivroBean {
 	}
 	
 	public List<Livro> getLivros(){
-		DAO<Livro> dao = new DAO<Livro>(Livro.class);
+		
 		if(this.livros == null) {
-		this.livros = dao.listaTodos();
+		this.livros = this.livroDao.listaTodos();
 		}
 		return livros;
 	}
 	
 	public List<Autor> getAutores(){
-		return new DAO<Autor>(Autor.class).listaTodos();
+		return autorDao.listaTodos();
 	}
 	
 	public List<Autor> getAutoresDoLivro(){
@@ -66,11 +78,11 @@ public class LivroBean {
 	}
 	
 	public void carregarLivroPeloId() {
-		this.livro = new DAO<Livro>(Livro.class).buscaPorId(livroId);
+		this.livro = this.livroDao.buscaPorId(livroId);
 	}
    
 	public void gravarAutor() {
-		Autor autor = new DAO<Autor>(Autor.class).buscaPorId(autorId);
+		Autor autor = autorDao.buscaPorId(autorId);
 		this.livro.adicionaAutor(autor);
 		System.out.println("Escrito por: " + autor.getNome());
 	}
@@ -84,14 +96,13 @@ public class LivroBean {
 	        return;
 	    }
 
-	    DAO<Livro> dao = new DAO<Livro>(Livro.class);
 
 	    if(this.livro.getId() == null) {
-	        dao.adiciona(this.livro);
+	        this.livroDao.adiciona(this.livro);
 
-	        this.livros = dao.listaTodos();
+	        this.livros = livroDao.listaTodos();
 	    } else {
-	        dao.atualiza(this.livro);
+	        this.livroDao.atualiza(this.livro);
 	    }
 
 	    this.livro = new Livro();
@@ -107,7 +118,7 @@ public class LivroBean {
 	
 	public void remover(Livro livro) {
 		System.out.println("Removendo livro");
-		 new DAO<Livro>(Livro.class).remove(livro);
+		 this.livroDao.remove(livro);
 	}
 	
 	public String formAutor() {

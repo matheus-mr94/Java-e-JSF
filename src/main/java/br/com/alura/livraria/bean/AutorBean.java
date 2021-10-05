@@ -1,16 +1,17 @@
 package br.com.alura.livraria.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.view.ViewScoped;
+import javax.inject.Named;
 
 import br.com.alura.livraria.dao.DAO;
 import br.com.alura.livraria.modelo.Autor;
 
-@ManagedBean
+@Named
 @ViewScoped
-public class AutorBean {
+public class AutorBean implements Serializable {
 	
 	private Autor autor = new Autor();
 	private Integer autorId;

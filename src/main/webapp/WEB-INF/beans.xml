@@ -1,2 +1,5 @@
 <beans>
+    <interceptors>
+        <class>br.com.alura.livraria.tx.GerenciadorDeTransacao</class>
+    </interceptors>
 </beans>

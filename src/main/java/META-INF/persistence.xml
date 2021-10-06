@@ -10,6 +10,7 @@
         <class>br.com.alura.livraria.modelo.Livro</class>
         <class>br.com.alura.livraria.modelo.Autor</class>
          <class>br.com.alura.livraria.modelo.Usuario</class>
+         <class>br.com.alura.livraria.modelo.Vendas</class>
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />

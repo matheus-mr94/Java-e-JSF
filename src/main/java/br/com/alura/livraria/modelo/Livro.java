@@ -27,7 +27,7 @@ public class Livro implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Calendar dataLancamento = Calendar.getInstance();
 
-	@ManyToMany(fetch=FetchType.EAGER)//Solução suja para LazyInitialization, correto é implementar um padrão que possibilita o carregamento.
+	@ManyToMany
 	private List<Autor> autores = new ArrayList<Autor>();
 	
 	
